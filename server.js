@@ -2,10 +2,10 @@ const express = require('express');
 
 const app = express();
 
-// Get /
-app.get('/', async (requestAnimationFrame, res) => {
-    res.send('hello')
-})
+// Get /git 
+app.get("/", async (req, res) => {
+  res.render("index.ejs");
+});
 
 
 app.listen(3000, () => {
