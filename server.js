@@ -1,4 +1,4 @@
-const dotenv = requre('dotenv');
+const dotenv = require('dotenv');
 dotenv.config();
 
 const express = require('express');
@@ -11,11 +11,18 @@ mongoose.connection.on('connected', () => {
   console.log(`Connected to MONGODB ${mongoose.connection.name}`)}
 );
 
+//Import fruit model
+const Fruit = require('./models/fruit.js');
+
 // Get /git 
 app.get("/", async (req, res) => {
   res.render("index.ejs");
 });
 
+// Get /fuits/new
+app.get('/fruits/new', (req, res) => {
+  res.render('fruits/new.ejs')
+})
 
 app.listen(3000, () => {
     console.log('Listening on Port 3000');
