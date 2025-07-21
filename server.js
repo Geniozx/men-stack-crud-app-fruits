@@ -14,6 +14,10 @@ mongoose.connection.on('connected', () => {
 //Import fruit model
 const Fruit = require('./models/fruit.js');
 
+// adding middleware for app
+app.use(express.urlencoded({ extended: false }));
+
+
 // Get /git 
 app.get("/", async (req, res) => {
   res.render("index.ejs");
@@ -22,6 +26,17 @@ app.get("/", async (req, res) => {
 // Get /fuits/new
 app.get('/fruits/new', (req, res) => {
   res.render('fruits/new.ejs')
+})
+
+// post /fruits
+app.post('/fruits', async (req, res) => {
+  if (req.body.isReadyToEat === 'on') {
+    req.body.isReadyToEat = true;
+  } else {
+    req.body.isReadyToEat = false;
+  }
+  await Fruit.create(req.body); //This line is the database transaction from line 15
+  res.redirect('/fruits/new');
 })
 
 app.listen(3000, () => {
